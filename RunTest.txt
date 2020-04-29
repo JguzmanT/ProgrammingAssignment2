@@ -1,0 +1,44 @@
+> source('~/ProgrammingAssignment2/cachematrix.R')
+> testmat <- matrix(c(rnorm(1)),1,1)
+> testmat
+          [,1]
+[1,] 0.6040727
+> MCache <- makeCacheMatrix()
+> MCache$set(testmat)
+> cacheSolve(MCache)
+        [,1]
+[1,] 1.65543
+> invM <- cacheSolve(MCache)
+getting cached data
+> testmat * invM
+     [,1]
+[1,]    1
+> testmat <- matrix(c(rnorm(9)),3,3)
+> testmat
+           [,1]       [,2]       [,3]
+[1,] 1.89249422 -0.5468113 -0.2728426
+[2,] 0.09340588 -0.1976939 -0.0578126
+[3,] 0.50584039  0.1363787  0.5387418
+> MCache$set(testmat)
+> invM <- cacheSolve(MCache)
+> invM
+           [,1]      [,2]       [,3]
+[1,]  0.5671371 -1.480101  0.1283931
+[2,]  0.4575532 -6.656830 -0.4826219
+[3,] -0.6483279  3.074839  1.8577971
+> testmat * invM
+            [,1]      [,2]        [,3]
+[1,]  1.07330372 0.8093358 -0.03503111
+[2,]  0.04273816 1.3160146  0.02790163
+[3,] -0.32795045 0.4193426  1.00087294
+> testmat %*% invM
+              [,1]         [,2]         [,3]
+[1,]  1.000000e+00 1.110223e-16 0.000000e+00
+[2,] -2.081668e-17 1.000000e+00 9.714451e-17
+[3,]  0.000000e+00 4.440892e-16 1.000000e+00
+> identM <- round(testmat %*% invM)
+> identM
+     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    0    1    0
+[3,]    0    0    1
